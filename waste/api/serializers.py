@@ -43,13 +43,6 @@ class PutOrganisationSerializer(serializers.ModelSerializer):
         return instance
 
 
-class CapacitySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Capacity
-        fields = ('material',)
-
-
 class StorageCapacitySerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(
         source='capacity',
@@ -424,3 +417,9 @@ class UtilizeSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return ShowOrganisationSerializer(instance, context=self.context).data
+
+
+class CapacitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Capacity
+        fields = ('id', 'material',)

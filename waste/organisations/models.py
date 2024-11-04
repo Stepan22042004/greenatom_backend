@@ -8,16 +8,20 @@ class Capacity(models.Model):
        ('Биоотходы', 'Биоотходы'),
        ('Пластик', 'Пластик'),
     ]
-    material = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    material = models.CharField(
+        max_length=50,
+        choices=TYPE_CHOICES,
+        unique=True
+    )
 
 
 class Storage(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     capacities = models.ManyToManyField(Capacity, through='StorageCapacity')
 
 
 class Organisation(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     storages = models.ManyToManyField(
         Storage,
         through='OrganisationStorage'

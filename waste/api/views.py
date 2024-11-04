@@ -1,14 +1,14 @@
 from djoser.views import UserViewSet
-from organisations.models import Organisation, Storage, User
+from organisations.models import Organisation, Storage, User, Capacity
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from api.serializers import (OrganisationSerializer, StorageSerializer,
                              DistanceSerializer, GenerateSerializer,
                              UtilizeSerializer, UserSerializer,
-                             PutOrganisationSerializer)
+                             PutOrganisationSerializer, CapacitySerializer)
 from api.permissions import IsEmployeeOrAdmin
 
 
@@ -43,7 +43,7 @@ class UserViewSet(UserViewSet):
 class OrganisationViewSet(viewsets.ModelViewSet):
     queryset = Organisation.objects.all()
     serializer_class = OrganisationSerializer
-    permission_classes = (IsEmployeeOrAdmin,)
+    permission_classes = (IsAuthenticated, IsEmployeeOrAdmin,)
 
     @action(methods=['patch'], detail=True, url_path='change_distance')
     def change_distance(self, request, pk=None):
@@ -86,3 +86,9 @@ class StorageViewSet(viewsets.ModelViewSet):
     queryset = Storage.objects.all()
     serializer_class = StorageSerializer
     permission_classes = (IsAdminUser,)
+
+
+class CapacityViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Capacity.objects.all()
+    serializer_class = CapacitySerializer
+    permission_classes = (IsAuthenticated,)
