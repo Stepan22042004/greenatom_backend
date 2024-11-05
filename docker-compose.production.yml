@@ -3,7 +3,6 @@ version: '3'
 volumes:
   pg_data:
   static:
-  media:
 
 services:
   db:
@@ -13,14 +12,14 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   backend:
-    image: stepan2204/foodgram_backend
+    image: stepan2204/greenatom_backend
     env_file: .env
     volumes:
       - static:/backend_static/
     depends_on:
       - db
   gateway:
-    image: stepan2204/foodgram_gateway
+    image: stepan2204/greenatom_gateway
     env_file: .env
     volumes:
       - static:/staticfiles/

@@ -3,12 +3,14 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-n%^v_4v#4ls$!n$$fauw+t$zj%zy5u7)^)s2!4+y4y1qq@fk)%'
+DEBUG = os.getenv('DEBUG', default='False') == 'True'
 
-DEBUG = False
+SECRET_KEY = os.getenv(
+    'SECRET_KEY', default='django-insecure-' + get_random_secret_key()
+)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '84.201.179.197']
-
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,6 +58,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'waste.wsgi.application'
 
 AUTH_USER_MODEL = 'organisations.User'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -96,7 +99,7 @@ DJOSER = {
     'HIDE_USERS': True,
 }
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -106,7 +109,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'collected_static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

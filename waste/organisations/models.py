@@ -42,6 +42,15 @@ class StorageCapacity(models.Model):
     amount = models.IntegerField(null=True)
     max_volume = models.IntegerField()
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=('storage', 'capacity'),
+                name='unique_storage_capacities'
+            )
+        ]
+
+
 
 class OrganisationCapacity(models.Model):
     organisation = models.ForeignKey(
@@ -53,6 +62,14 @@ class OrganisationCapacity(models.Model):
     amount = models.IntegerField()
     max_volume = models.IntegerField()
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=('organisation', 'capacity'),
+                name='unique_organisation_capacities'
+            )
+        ]
+
 
 class OrganisationStorage(models.Model):
     organisation = models.ForeignKey(
@@ -61,6 +78,14 @@ class OrganisationStorage(models.Model):
         related_name='storages_organisation')
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
     distance = models.IntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=('organisation', 'storage'),
+                name='unique_organisation_storages'
+            )
+        ]
 
 
 class User(AbstractUser):
