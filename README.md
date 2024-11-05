@@ -49,7 +49,7 @@
    sudo docker compose -f docker-compose.production.yml exec backend python manage.py createsuperuser
    ```
 
-5. **Api будет принимать запросы по адресу: [http://localhost](http://localhost) на 8002 порт(он указан и nginx.conf и в Dockerfile для backend, можно поменять на стандартны 8000)**
+5. **Api будет принимать запросы по адресу: [http://localhost](http://localhost) на 8002 порт(он указан и nginx.conf и в Dockerfile для backend, можно поменять на стандартный 8000)**
 
 
 
