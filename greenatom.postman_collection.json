@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "dff96d9f-e955-4896-bc88-0ad6360487d8",
+		"_postman_id": "a3340074-ef86-43ee-8e51-00687aad7752",
 		"name": "greenatom",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "38299040"
@@ -97,109 +97,37 @@
 			"response": []
 		},
 		{
-			"name": "delete_organisation",
+			"name": "get_token_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseData = pm.response.json();\r",
+							"const auth_token = _.get(responseData, \"auth_token\");\r",
+							"pm.collectionVariables.set(\"admin_token\", auth_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{admin_token}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": "{{baseUrl}}/api/storages/1/"
-			},
-			"response": []
-		},
-		{
-			"name": "delete_storage",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{admin_token}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": "{{baseUrl}}/api/storages/1/"
-			},
-			"response": []
-		},
-		{
-			"name": "new_organisation",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{admin_token}}",
-						"key": "Authorization"
-					}
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"storages\": [\r\n    {\r\n        \"id\": 1,\r\n        \"distance\": {{distance1}}\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"distance\": {{distance2}}\r\n    }\r\n\r\n  ],\r\n  \"capacities\": [\r\n    {\r\n      \"id\": \"1\",\r\n      \"amount\": {{amount2}},\r\n      \"max_volume\": {{max_volume}}\r\n    },\r\n    {\r\n      \"id\": \"2\",\r\n      \"amount\": {{amount2}},\r\n      \"max_volume\": {{max_volume}}\r\n    }\r\n  ],\r\n  \"name\": {{organisation_name}}\r\n}",
+					"raw": "{\r\n    \"email\": \"{{admin_email}}\",\r\n    \"password\": \"{{admin_password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{baseUrl}}/api/organisations/"
-			},
-			"response": []
-		},
-		{
-			"name": "change_distances",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{token1}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"storages\": [\r\n    {\r\n        \"id\": 1,\r\n        \"distance\": 10000\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/organisations/1/change_distance/"
-			},
-			"response": []
-		},
-		{
-			"name": "generate_waste",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{token1}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"material\": \"Стекло\",\r\n    \"amount\": 50\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/organisations/1/generate_waste/"
+				"url": "{{baseUrl}}/api/auth/token/login/"
 			},
 			"response": []
 		},
@@ -221,136 +149,6 @@
 					}
 				},
 				"url": "{{baseUrl}}/api/users/"
-			},
-			"response": []
-		},
-		{
-			"name": "create_user_2",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"{{email2}}\",\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"first_name\": \"{{first_name}}\",\r\n    \"last_name\": \"{{last_name}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/users/"
-			},
-			"response": []
-		},
-		{
-			"name": "get_user_profile",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{token1}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"admin@ya.ru\",\r\n    \"username\": \"admin\",\r\n    \"first_name\": \"Вася\",\r\n    \"last_name\": \"Иванов\",\r\n    \"password\": \"yandex123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/users/1/"
-			},
-			"response": []
-		},
-		{
-			"name": "get_users_list",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{admin_token}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"admin@ya.ru\",\r\n    \"username\": \"admin\",\r\n    \"first_name\": \"Вася\",\r\n    \"last_name\": \"Иванов\",\r\n    \"password\": \"yandex123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/users/1/"
-			},
-			"response": []
-		},
-		{
-			"name": "utilize",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{token1}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"material\": \"Пластик\",\r\n    \"amount\": 1\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/organisations/1/utilize/"
-			},
-			"response": []
-		},
-		{
-			"name": "users_me",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{token1}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"admin@ya.ru\",\r\n    \"username\": \"admin\",\r\n    \"first_name\": \"Вася\",\r\n    \"last_name\": \"Иванов\",\r\n    \"password\": \"yandex123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/users/me/"
 			},
 			"response": []
 		},
@@ -390,21 +188,7 @@
 			"response": []
 		},
 		{
-			"name": "get_token_2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"const responseData = pm.response.json();\r",
-							"const auth_token = _.get(responseData, \"auth_token\");\r",
-							"pm.collectionVariables.set(\"admin_token\", auth_token);"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
+			"name": "create_user_2",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -413,14 +197,14 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"{{admin_email}}\",\r\n    \"password\": \"{{admin_password}}\"\r\n}",
+					"raw": "{\r\n    \"email\": \"{{email2}}\",\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"first_name\": \"{{first_name}}\",\r\n    \"last_name\": \"{{last_name}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{baseUrl}}/api/auth/token/login/"
+				"url": "{{baseUrl}}/api/users/"
 			},
 			"response": []
 		},
@@ -456,31 +240,6 @@
 					}
 				},
 				"url": "{{baseUrl}}/api/auth/token/login/"
-			},
-			"response": []
-		},
-		{
-			"name": "add_organisation",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": {
-						"value": "Token {{admin_token}}",
-						"key": "Authorization"
-					}
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"organisations\":\r\n        1\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/api/users/1/add_organisation/"
 			},
 			"response": []
 		},
@@ -531,6 +290,235 @@
 					}
 				},
 				"url": "{{baseUrl}}/api/storages/"
+			},
+			"response": []
+		},
+		{
+			"name": "new_organisation",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{admin_token}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"storages\": [\r\n    {\r\n        \"id\": 1,\r\n        \"distance\": {{distance1}}\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"distance\": {{distance2}}\r\n    }\r\n\r\n  ],\r\n  \"capacities\": [\r\n    {\r\n      \"id\": \"1\",\r\n      \"amount\": {{amount2}},\r\n      \"max_volume\": {{max_volume}}\r\n    },\r\n    {\r\n      \"id\": \"2\",\r\n      \"amount\": {{amount2}},\r\n      \"max_volume\": {{max_volume}}\r\n    }\r\n  ],\r\n  \"name\": \"{{organisation_name}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/organisations/"
+			},
+			"response": []
+		},
+		{
+			"name": "add_organisation",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{admin_token}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"organisations\":\r\n  [\r\n        1\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/users/1/add_organisation/"
+			},
+			"response": []
+		},
+		{
+			"name": "generate_waste",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{token1}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"material\": \"Стекло\",\r\n    \"amount\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/organisations/1/generate_waste/"
+			},
+			"response": []
+		},
+		{
+			"name": "utilize",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{token1}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"material\": \"Пластик\",\r\n    \"amount\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/organisations/1/utilize/"
+			},
+			"response": []
+		},
+		{
+			"name": "change_distances",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{token1}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"storages\": [\r\n    {\r\n        \"id\": 1,\r\n        \"distance\": 10000\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/organisations/1/change_distance/"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_organisation",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{admin_token}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseUrl}}/api/storages/1/"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_storage",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{admin_token}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseUrl}}/api/storages/1/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_user_profile",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{token1}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/api/users/1/"
+			},
+			"response": []
+		},
+		{
+			"name": "get_users_list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{admin_token}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@ya.ru\",\r\n    \"username\": \"admin\",\r\n    \"first_name\": \"Вася\",\r\n    \"last_name\": \"Иванов\",\r\n    \"password\": \"yandex123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/users/"
+			},
+			"response": []
+		},
+		{
+			"name": "users_me",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "Token {{token1}}",
+						"key": "Authorization"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@ya.ru\",\r\n    \"username\": \"admin\",\r\n    \"first_name\": \"Вася\",\r\n    \"last_name\": \"Иванов\",\r\n    \"password\": \"yandex123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/users/me/"
 			},
 			"response": []
 		},
