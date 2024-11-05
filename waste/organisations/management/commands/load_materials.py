@@ -4,7 +4,7 @@ from waste.settings import BASE_DIR
 from django.core.management import BaseCommand
 from organisations.models import Capacity
 
-BASE_DIR = str(BASE_DIR.parents[0]) + r'\data'
+BASE_DIR = '/app/data'
 
 
 class Command(BaseCommand):
@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
     def import_ingredients(self):
         with open(
-            BASE_DIR + r'\materials.csv',
+            os.path.join(BASE_DIR, 'materials.csv'), 
             'r',
             encoding='utf-8'
         ) as file:
