@@ -3,14 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Capacity(models.Model):
-    TYPE_CHOICES = [
-       ('Стекло', 'Стекло'),
-       ('Биоотходы', 'Биоотходы'),
-       ('Пластик', 'Пластик'),
-    ]
     material = models.CharField(
         max_length=50,
-        choices=TYPE_CHOICES,
         unique=True
     )
 
