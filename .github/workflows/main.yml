@@ -23,7 +23,7 @@ jobs:
         with:
           context: ./waste/
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest 
+          tags: ${{ secrets.DOCKER_USERNAME }}/greenatom_backend:latest 
 
   build_gateway_and_push_to_docker_hub:
     name: Push gateway Docker image to DockerHub
