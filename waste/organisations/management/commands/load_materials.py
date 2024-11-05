@@ -1,4 +1,5 @@
 import csv
+import os
 
 from waste.settings import BASE_DIR
 from django.core.management import BaseCommand
